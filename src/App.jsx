@@ -1,35 +1,94 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useContext, useState, useEffect } from "react";
+import { UserContext } from "./contexts/UserContext";
+import { Routes, Route, useNavigate } from "react-router";
+import parkService from "./services/parkService.js";
+import proposalService from "./services/proposalService";
+import NavBar from "./components/NavBar/NavBar.jsx";
+import Landing from "./components/Landing/Landing.jsx";
+import SignInForm from "./components/SignInForm/SigninForm";
+import SignUpForm from "./components/SignUpForm/SignUpForm";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import AdminDashboard from "./components/Dashboard/AdminDashBoard.jsx";
+import ParkList from "./components/ParkList/ParkList.jsx";
+import ProposalList from "./components/ProposalList /ProposalList.jsx";
+import ParkDetails from "./components/ParkDetails/ParkDetails.jsx";
+import ProposalForm from "./components/ProposalForm/ProposalForm.jsx";
+import AdminSignInForm from "./components/SignInForm/AdminSigninForm.jsx"
+import AdminSignUpForm from "./components/SignUpForm/AdminSignUpForm.jsx"
+import AdminLanding from "./components/Landing/AdminLanding.jsx";
+import AdminParkList from "./components/ParkList/AdminParkList.jsx"
+import AdminParkDetails from "./components/ParkDetails/AdminParkDetails.jsx"
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [parks, setParks] = useState([]);
+  const [proposals, setProposals] = useState([]);
+  const [parkList, setParkList] = useState([]);
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
+  useEffect(() => {
+    const fetchAllParks = async () => {
+      const parksData = await parkService.index();
+      setParks(parksData);
+    };
+    const fetchAllProposals = async () => {
+      const proposalsData = await proposalService.indexAllProposals();
+      setProposals(proposalsData);
+    };
+    if (user) fetchAllParks(), fetchAllProposals();
+  }, [user]);
+
+
+
+  const handleAddPark = async (parkFormData) => {
+    const newPark = await parkService.create(parkFormData);
+    setIdeas([newPark, ...parks]);
+    const parksData = await parkService.index();
+    setIdeas(parksData);
+    navigate('/parks');
+  };
+
+  const newSearchData = (searchTerm) => {
+    setParkList(parkList.filter((park) => park.name === searchTerm));
+  };
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+ 
+{/* <NavBar/> */}
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <Dashboard parks={parks} proposals={proposals} /> : <Landing />}
+        />
+        <Route
+          path="/admin"
+          element={user.isAdmin ? <AdminDashboard parks={parks} proposals={proposals} /> : <AdminLanding />}
+        />
+        {user ? (
+          <>
+            {/* protected routes */}
+            <Route path="/parks" element={<ParkList parks={parks} proposals={proposals} />} />
+            <Route path="/proposals" element={<ProposalList proposals={proposals} />} />
+            <Route path="/parks/:parkId" element={<ParkDetails/>}/>
+            <Route path="/parks/:parkId/proposal/:proposalId/edit" element={<ProposalForm />} />
+          
+            <Route path="/admin/parks" element={<AdminParkList parks={parks} proposals={proposals} />} />
+            <Route path="/admin/parks/:parkId" element={<AdminParkDetails/>} />
 
-export default App
+          </>
+        ) : (
+          <>
+            <Route path="/sign-in" element={<SignInForm />} />
+            <Route path="/sign-up" element={<SignUpForm />} />
+            <Route path="/admin/sign-in" element={<AdminSignInForm />} />
+            <Route path="/admin/sign-up" element={<AdminSignUpForm />} />
+          </>
+        )}
+       
+      </Routes>
+    </>
+  );
+};
+
+export default App;
