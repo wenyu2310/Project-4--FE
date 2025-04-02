@@ -3,11 +3,8 @@ import ideaincLogo from "../../assets/logo.png";
 import ideaLogo from "../../assets/bulb-idea-light.svg";
 import feedback from "../../assets/feedback.svg";
 import voting from "../../assets/voteinfo.svg";
-import man from "../../assets/man.svg";
-import woman from "../../assets/woman.svg";
 import cin from "../../assets/CIN.jpg";
 import parkitect from "../../assets/Parkitect-tag.png";
-import Wishes from "../../assets/wishes2.png";
 import { Link } from "react-router-dom";
 import AdminNavBar from "../NavBar/AdminNavBar";
 

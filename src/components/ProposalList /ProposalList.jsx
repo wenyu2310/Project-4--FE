@@ -17,14 +17,14 @@ const ProposalList = ({ proposals }) => {
           <p className="text-center mx-70 my-10">Be involved in the design, development and management of Singapore's parks and green spaces across Singapore! 
  
  Sign up below and we will contact you for engagement sessions by the National Parks Board (NParks) if there are park redevelopments or new park developments near your area of residence.</p>
- <div className="carousel w-full bg-white rounded-box">
+ {/* <div className="carousel w-full bg-white rounded-box">
  <div className="carousel-item relative w-full">
             {proposals.map((proposal) => (
               <PartnerCard key={proposal.id} proposal={proposal} />
             ))}
           </div>
 
-</div>
+</div> */}
           {/* Map through parks array to create cards */}
         </div>
         <div className="py-8">

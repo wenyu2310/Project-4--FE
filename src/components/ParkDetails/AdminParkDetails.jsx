@@ -17,6 +17,7 @@ const ParkDetails = (props) => {
   const [park, setPark] = useState(null);
   const [proposals, setProposals] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [mailinglist, setMailinglist] = useState([]);
   const [activeTab, setActiveTab] = useState("overview");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,14 +29,25 @@ const ParkDetails = (props) => {
       setPark(parkData);
     };
 
-    const fetchParkProposals = async () => {
-      const proposalsData = await proposalService.indexParkProposals();
+    const fetchParkProposals = async (parkId) => {
+      const proposalsData = await proposalService.indexParkProposals(parkId);
       setProposals(proposalsData);
     };
+
+    const fetchParkFeedback = async (parkId) => {
+      const feedbackData = await feedbackService.indexParkFeedbacks(parkId);
+      setFeedbacks(feedbackData)
+    }
+    const fetchMailingList = async (parkId) => {
+      const mailinglistData = await mailinglistService.indexParkmailinglist(parkId);
+      setMailinglist(mailinglistData)
+    }
     
     if (user) {
       fetchPark();
       fetchParkProposals();
+      fetchParkFeedback();
+      fetchMailingList()
 
     }
   }, [parkId, user]);
@@ -44,28 +56,8 @@ const ParkDetails = (props) => {
     setActiveTab(tab);
   };
 
-  const handleAddProposal = async (proposalFormData) => {
-    console.log(parkId);
-    console.log(proposalFormData);
-    const newProposal = await proposalService.createProposal(
-      parkId,
-      proposalFormData
-    );
-    setProposals([newProposal, ...proposals]);
-    const proposalsData = await proposalService.indexParkProposals();
-    setProposals(proposalsData);
-  };
-  const handleAddFeedback = async (feedbackFormData) => {
-    console.log(parkId);
-    console.log(feedbackFormData);
-    const newFeedback = await feedbackService.createFeedback(
-      parkId,
-      feedbackFormData
-    );
-    setFeedbacks([newFeedback, ...feedbacks]);
-    // const feedbacksData = await feedbackService.indexParkFeedbacks();
-    // setFeedbacks(feedbacksData);
-  };
+
+
   const handleSubscriptionToggle = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -142,9 +134,9 @@ const ParkDetails = (props) => {
               </li>
               <li>
                 <button
-                  onClick={() => handleTabClick("design")}
+                  onClick={() => handleTabClick("feedback")}
                   className={`w-full text-left px-6 py-3 ${
-                    activeTab === "design"
+                    activeTab === "feedback"
                       ? "bg-gray-100 font-medium"
                       : "hover:bg-gray-50"
                   }`}
@@ -154,9 +146,9 @@ const ParkDetails = (props) => {
               </li>
               <li>
                 <button
-                  onClick={() => handleTabClick("status")}
+                  onClick={() => handleTabClick("partnership")}
                   className={`w-full text-left px-6 py-3 ${
-                    activeTab === "status"
+                    activeTab === "partnership"
                       ? "bg-gray-100 font-medium"
                       : "hover:bg-gray-50"
                   }`}
@@ -166,9 +158,9 @@ const ParkDetails = (props) => {
               </li>
               <li>
                 <button
-                  onClick={() => handleTabClick("partnership")}
+                  onClick={() => handleTabClick("mailinglist")}
                   className={`w-full text-left px-6 py-3 ${
-                    activeTab === "partnership"
+                    activeTab === "mailinglist"
                       ? "bg-gray-100 font-medium"
                       : "hover:bg-gray-50"
                   }`}
@@ -185,15 +177,18 @@ const ParkDetails = (props) => {
           {activeTab === "overview" && (
             <div>
               <h2 className="text-2xl font-medium mb-6">Overview</h2>
-
+              <p className="text-gray-800">Number of Feedback: {feedbacks?.length}</p>
+              <p className="text-gray-800">Number of Partnership Proposal: {proposals?.length}</p>
+              <p className="text-gray-800">Number of Subsricbers: {mailinglist?.length}</p>
+     
              
             </div>
           )}
 
-          {activeTab === "design" && (
+          {activeTab === "feedback" && (
             <div>
               <h2 className="text-2xl font-medium mb-6">
-                Concept Design of park{" "}
+                Feedback {" "}
               </h2>
               <p className="text-gray-800">{park?.description}</p>
               <img alt={park?.name} src={park?.plan} />
@@ -201,7 +196,7 @@ const ParkDetails = (props) => {
               <img alt={park?.name} src={park?.perspective} />
             </div>
           )}
-          {activeTab === "status" && (
+          {activeTab === "partnership" && (
             <div>
               {" "}
               <h2 className="text-2xl font-medium mb-6">
@@ -209,9 +204,9 @@ const ParkDetails = (props) => {
                 </h2>
               </div>
           )}
-          {activeTab === "partnership" && (
+          {activeTab === "mailinglist" && (
             <div>
-              <h2 className="text-2xl font-medium mb-6">Partnership Hub</h2>
+              <h2 className="text-2xl font-medium mb-6">Mailing List</h2>
               <h2>Our Community Partnership Proposals</h2>
             
             </div>

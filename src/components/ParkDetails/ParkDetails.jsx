@@ -9,6 +9,8 @@ import mailinglistService from "../../services/mailinglistService";
 import ProposalCard from "../ProposalCard/ProposalCard";
 import ProposalForm from "../ProposalForm/ProposalForm";
 import FeedbackForm from "../FeedbackForm/FeedbackForm";
+import Navbar from "../NavBar/NavBar"
+import ProposalCardNoBg from "../ProposalCard/ProposalCardNoBg.jsx";
 
 // const googleApi = `${import.meta.env.GOOGLE_API}`;
 
@@ -25,28 +27,22 @@ const ParkDetails = (props) => {
 
   useEffect(() => {
     const fetchPark = async () => {
-      const parkData = await parkService.show(parkId);
-      setPark(parkData);
-    };
-
-    const fetchParkProposals = async () => {
-      const proposalsData = await proposalService.indexParkProposals();
-      setProposals(proposalsData);
-    };
-    const checkSubscription = async () => {
       try {
-        const response = await mailinglistService.checkSubscription(parkId);
-        setIsSubscribed(response.isSubscribed);
+        const parkData = await parkService.show(parkId);
+        console.log(parkData.proposals)
+        setPark(parkData);
+        
+        // If the park data includes proposals, set them directly
+        if (parkData && parkData.proposals) {
+          setProposals(parkData.proposals);
+        }
       } catch (error) {
-        console.error("Error checking subscription:", error);
-      } finally {
-        setIsLoading(false);
+        console.error("Error fetching park data:", error);
       }
     };
+    
     if (user) {
       fetchPark();
-      fetchParkProposals();
-      checkSubscription()
     }
   }, [parkId, user]);
 
@@ -126,6 +122,8 @@ const ParkDetails = (props) => {
 
   return (
     <>
+    <Navbar/>
+    
       <main className="sm:mx-6 md:mx-8 lg:mx-16 xl:mx-24 md:max-w-7xl "></main>
       {/* Main Content */}
       <div className="flex">
@@ -311,7 +309,7 @@ const ParkDetails = (props) => {
               <h2>Our Community Partnership Proposals</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {proposals.map((proposal) => (
-                  <ProposalCard key={proposal.id} proposal={proposal} />
+                  <ProposalCardNoBg key={proposal.id} proposal={proposal} />
                 ))}
               </div>
               <br/>

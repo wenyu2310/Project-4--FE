@@ -3,11 +3,8 @@ import ideaincLogo from "../../assets/logo.png";
 import ideaLogo from "../../assets/bulb-idea-light.svg";
 import feedback from "../../assets/feedback.svg";
 import voting from "../../assets/voteinfo.svg";
-import man from "../../assets/man.svg";
-import woman from "../../assets/woman.svg";
 import cin from "../../assets/CIN.jpg";
 import parkitect from "../../assets/Parkitect-tag.png";
-import Wishes from "../../assets/wishes2.png";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 
@@ -83,6 +80,13 @@ const Landing = () => {
         <p className="text-base sm:text-lg text-gray-700">
           Join a vibrant park community where volunteers of all ages come together to care for green spaces, organize programs, and build lasting connections across generations.
         </p>
+
+
+        <Link to="/admin">
+          <button className="mt-10 btn btn-ghost text-gray-500">
+    Admin Log in
+</button>
+          </Link>
       </section>
 
       {/* Footer */}

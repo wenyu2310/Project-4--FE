@@ -13,7 +13,7 @@ const Dashboard = ({ parks, proposals }) => {
   return (
     <>
     <NavBar/>
-    <main class= "text-green-800">
+    <main className= "text-green-800">
       {/* About Platform Section */}
       <section className="relative py-12 sm:py-16 lg:py-24">
         {/* Background image with 50% opacity - minimum 600px height on large screens */}
@@ -53,33 +53,33 @@ const Dashboard = ({ parks, proposals }) => {
           </div>
         </div>
       </section>
-      <section class="py-12 px-6 bg-white ">
-        <h2 class="text-3xl font-bold text-center  mb-8 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2 after:w-20 after:h-1 after:bg-orange-500">
+      <section className="py-12 px-6 bg-white ">
+        <h2 className="text-3xl font-bold text-center  mb-8 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2 after:w-20 after:h-1 after:bg-orange-500">
           How Parkitect Works
         </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-          <div class="bg-white rounded-lg p-8 shadow-md transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-lg text-center">
-            <div class="text-4xl mb-4">🌳</div>
-            <h3 class="text-xl font-semibold mb-4">Design & Planning</h3>
-            <p class="text-gray-700">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          <div className="bg-white rounded-lg p-8 shadow-md transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-lg text-center">
+            <div className="text-4xl mb-4">🌳</div>
+            <h3 className="text-xl font-semibold mb-4">Design & Planning</h3>
+            <p className="text-gray-700">
               Explore innovative park designs and development plans created with
               community input and sustainable practices.
             </p>
           </div>
-          <div class="bg-white rounded-lg p-8 shadow-md transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-lg text-center">
-            <div class="text-4xl mb-4">📅</div>
-            <h3 class="text-xl font-semibold mb-4">Project Timeline</h3>
-            <p class="text-gray-700">
+          <div className="bg-white rounded-lg p-8 shadow-md transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-lg text-center">
+            <div className="text-4xl mb-4">📅</div>
+            <h3 className="text-xl font-semibold mb-4">Project Timeline</h3>
+            <p className="text-gray-700">
               View detailed timelines for all park development projects, from
               initial planning to completion and maintenance.
             </p>
           </div>
-          <div class="bg-white rounded-lg p-8 shadow-md transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-lg text-center">
-            <div class="text-4xl mb-4">🤝</div>
-            <h3 class="text-xl font-semibold mb-4">
+          <div className="bg-white rounded-lg p-8 shadow-md transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-lg text-center">
+            <div className="text-4xl mb-4">🤝</div>
+            <h3 className="text-xl font-semibold mb-4">
               Partnership Opportunities
             </h3>
-            <p class="text-gray-700">
+            <p className="text-gray-700">
               Submit proposals to partner with us on park development,
               maintenance, or community programming initiatives.
             </p>

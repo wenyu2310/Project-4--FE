@@ -41,7 +41,7 @@ const createProposal = async ( parkId,proposalFormData) => {
     console.log(error);
   }
 };
-const indexParkProposals = async (parkId, proposalFormData) => {
+const indexParkProposals = async (parkId) => {
   try {
     const res = await fetch (`${BASE_URL}/${parkId}/proposals`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}

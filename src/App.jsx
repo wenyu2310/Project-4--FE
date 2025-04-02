@@ -39,7 +39,7 @@ const App = () => {
     if (user) fetchAllParks(), fetchAllProposals();
   }, [user]);
 
-
+  // console.log(user)
 
   const handleAddPark = async (parkFormData) => {
     const newPark = await parkService.create(parkFormData);
@@ -63,7 +63,7 @@ const App = () => {
         />
         <Route
           path="/admin"
-          element={user.isAdmin ? <AdminDashboard parks={parks} proposals={proposals} /> : <AdminLanding />}
+          element={user?.isAdmin ? <AdminDashboard parks={parks} proposals={proposals} /> : <AdminLanding />}
         />
         {user ? (
           <>

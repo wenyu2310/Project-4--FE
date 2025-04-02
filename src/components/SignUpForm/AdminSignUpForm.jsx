@@ -55,6 +55,24 @@ const AdminSignUpForm = () => {
             <p className="text-red-500 text-center">{message}</p>
             <div>
               <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Name:
+              </label>
+              <input
+                type="text"
+                id="name"
+                value={formData.name}
+                name="name"
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full border-b-4 border-gray-300 focus:outline-none focus:ring-0"
+                disabled={isLoading}
+              />
+            </div>
+            <div>
+              <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >

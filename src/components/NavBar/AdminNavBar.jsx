@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import User from "../../assets/user.svg";
-import Wishes from "../../assets/wishes.png";
 import parkitect from "../../assets/Parkitect-logo.png";
 import Idea from "../../assets/nparks-logo.svg";
 
@@ -24,7 +23,7 @@ const AdminNavBar = () => {
   return (
     <>
       <nav className={`fixed top-0 left-0 w-full z-50 ${navbarHeight}`}>
-        {user ? (
+        {user?.isAdmin ? (
           <div className="navbar bg-base-100 shadow-sm py-2 px-4 md:py-5 md:px-6">
             <div className="flex-1">
               <Link to="/admin" className="flex items-center">

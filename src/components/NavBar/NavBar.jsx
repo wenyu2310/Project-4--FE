@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import User from '../../assets/user.svg';
-import Wishes from '../../assets/wishes.png';
 import parkitect from '../../assets/Parkitect-logo.png';
 import Idea from '../../assets/nparks-logo.svg';
 
