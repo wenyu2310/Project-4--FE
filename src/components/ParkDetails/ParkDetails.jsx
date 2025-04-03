@@ -2,10 +2,10 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
-import proposalService from "../../services/proposalService";
-import feedbackService from "../../services/feedbackService"
-import parkService from "../../services/parkService";
-import mailinglistService from "../../services/mailinglistService";
+import * as proposalService from "../../services/proposalService";
+import * as feedbackService from "../../services/feedbackService"
+import * as parkService from "../../services/parkService";
+import * as mailinglistService from "../../services/mailinglistService";
 import ProposalCard from "../ProposalCard/ProposalCard";
 import ProposalForm from "../ProposalForm/ProposalForm";
 import FeedbackForm from "../FeedbackForm/FeedbackForm";
@@ -58,10 +58,11 @@ const ParkDetails = (props) => {
     const newProposal = await proposalService.createProposal(
       parkId,
       proposalFormData,
-      navigate(`/parks/${parkId}`)
+      // navigate(`/parks/${parkId}`),
     );
     setProposals([newProposal, ...proposals]);
-    const proposalsData = await proposalService.indexParkProposals();
+    alert("Proposal posted successfully");
+    const proposalsData = await proposalService.indexParkProposals(parkId);
     setProposals(proposalsData);
   };
   const handleAddFeedback = async (feedbackFormData) => {
@@ -96,12 +97,7 @@ const ParkDetails = (props) => {
       setIsLoading(false);
     }
   };
-  const handleDeleteProposal = async (proposalId) => {
-    const deletedProposal = await proposalService.deleteProposal(proposalId);
-    setProposals(
-      proposals.filter((proposal) => proposal.id !== deletedProposal.id)
-    );
-  };
+
   const steps = [
     { title: "Planning", description: "Estimated 1 year for completion" },
     { title: "Concept Design", description: "Estimated 1 year for completion" },

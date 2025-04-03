@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import proposalservice from "../../services/proposalService";
+import * as proposalService from "../../services/proposalService"
 import { UserContext } from "../../contexts/UserContext";
-import { useParams, Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 
 
@@ -9,14 +9,25 @@ const ProposalDetails = (props) => {
     const [proposal, setProposal] = useState(null);
     const { parkId, proposalId } = useParams();
     const { user } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const handleDeleteProposal = async (parkId, proposalId) => {
-        await proposalservice.deleteProposal(parkId, proposalId);
+        try {
+            // Assuming your import looks like: import proposalService from '../../services/proposalService';
+            await proposalService.deleteProposal(parkId, proposalId);
+            alert("Proposal deleted successfully")
+            // Add any success handling like UI updates or navigation
+            console.log("Proposal deleted successfully");
+            navigate(`/parks/${parkId}`);
+        } catch (error) {
+            console.error("Failed to delete proposal:", error);
+            // Handle the error appropriately (show user message, etc.)
+        }
     };
 
     useEffect(() => {
         const fetchproposal = async () => {
-            const proposalData = await proposalservice.showProposal(parkId, proposalId);
+            const proposalData = await proposalService.showProposal(parkId, proposalId);
             setProposal(proposalData);
         };
         fetchproposal();
@@ -32,21 +43,22 @@ const ProposalDetails = (props) => {
             <p>{proposal?.user.name}</p>
             <p>{proposal?.createdAt}</p>
             
-          
+            {proposal?.user.id === user?.id && (
                         <div className="flex space-x-2">
                             <Link
-                                to={`/ideas/${ideaId}/edit`}
+                                to={`/parks/${parkId}/proposals/${proposalId}/edit`}
                                 className="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded-full"
                             >
-                                Edit Idea
+                                Edit Proposal
                             </Link>
                             <button
                                 onClick={() => handleDeleteProposal(parkId, proposalId)}
                                 className="bg-gray-400 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full"
                             >
-                                Delete Idea
+                                Delete Proposal
                             </button>
                         </div>
+            )}
 
 
                  </main>

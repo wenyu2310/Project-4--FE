@@ -65,12 +65,13 @@ const checkSubscription = async (parkId) => {
 
 const indexParkmailinglist = async (parkId) => {
   try {
-    const res = await fetch (`${BASE_URL}/${parkId}/mailinglist`, {
+    const res = await fetch (`${BASE_URL}/${parkId}/mailingList`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
     })
     return res.json();
 } catch (error) {
     console.log(error);
+    return [];
 }
 };
 
@@ -108,7 +109,7 @@ const updateMailer = async (parkId, mailerId, mailerFormData) => {
 };
 
 
-export default{
+export {
     indexAllMailingLists,
     indexParkmailinglist,
     createMailer,

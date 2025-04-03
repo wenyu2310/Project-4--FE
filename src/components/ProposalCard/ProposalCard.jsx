@@ -1,3 +1,4 @@
+import { useParams, Link } from "react-router-dom";
 const ProposalCard = (props) => {
   return (
     <div className="w-full h-full">

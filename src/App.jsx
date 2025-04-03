@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./contexts/UserContext";
 import { Routes, Route, useNavigate } from "react-router";
-import parkService from "./services/parkService.js";
-import proposalService from "./services/proposalService";
+import * as parkService from "./services/parkService.js";
+import * as proposalService from "./services/proposalService";
 import NavBar from "./components/NavBar/NavBar.jsx";
 import Landing from "./components/Landing/Landing.jsx";
 import SignInForm from "./components/SignInForm/SigninForm";
@@ -74,6 +74,7 @@ const App = () => {
             <Route path="/proposals" element={<ProposalList proposals={proposals} />} />
             <Route path="/parks/:parkId" element={<ParkDetails/>}/>
             <Route path="/parks/:parkId/proposals/:proposalId" element={<ProposalDetails />} />
+            <Route path="/parks/:parkId/proposals/:proposalId/edit" element={<ProposalForm />} />
           
             <Route path="/admin/parks" element={<AdminParkList parks={parks} proposals={proposals} />} />
             <Route path="/admin/parks/:parkId" element={<AdminParkDetails/>} />

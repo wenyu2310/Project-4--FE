@@ -49,6 +49,7 @@ const indexParkFeedbacks = async (parkId) => {
     return res.json();
 } catch (error) {
     console.log(error);
+    return [];
 }
 };
 
@@ -99,7 +100,7 @@ const updateFeedback = async (parkId, feedbackId, feedbackFormData) => {
 };
 
 
-export default{
+export {
     indexAllFeedbacks,
     indexParkFeedbacks,
     createFeedback,

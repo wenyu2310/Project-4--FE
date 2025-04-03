@@ -43,7 +43,7 @@ try {
 
 
 
-export default {
+export {
     index,
     show,
     create,

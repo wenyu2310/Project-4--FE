@@ -2,12 +2,21 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
-import proposalService from "../../services/proposalService";
-import feedbackService from "../../services/feedbackService"
-import parkService from "../../services/parkService";
-import mailinglistService from "../../services/mailinglistService";
+import * as proposalService from "../../services/proposalService";
+import * as feedbackService from "../../services/feedbackService";
+import * as parkService from "../../services/parkService";
+import * as mailinglistService from "../../services/mailinglistService";
 
 import AdminNavBar from "../NavBar/AdminNavBar.jsx";
+
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+  Tooltip,
+} from "recharts";
 
 // const googleApi = `${import.meta.env.GOOGLE_API}`;
 
@@ -21,7 +30,6 @@ const ParkDetails = (props) => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  
 
   useEffect(() => {
     const fetchPark = async () => {
@@ -36,19 +44,20 @@ const ParkDetails = (props) => {
 
     const fetchParkFeedback = async () => {
       const feedbackData = await feedbackService.indexParkFeedbacks(parkId);
-      setFeedbacks(feedbackData)
-    }
+      setFeedbacks(feedbackData);
+    };
     const fetchMailingList = async () => {
-      const mailinglistData = await mailinglistService.indexParkmailinglist(parkId);
-      setMailinglist(mailinglistData)
-    }
-    
+      const mailinglistData = await mailinglistService.indexParkmailinglist(
+        parkId
+      );
+      setMailinglist(mailinglistData);
+    };
+
     if (user) {
       fetchPark();
       fetchParkProposals();
       fetchParkFeedback();
-      fetchMailingList()
-
+      fetchMailingList();
     }
   }, [parkId, user]);
 
@@ -56,12 +65,10 @@ const ParkDetails = (props) => {
     setActiveTab(tab);
   };
 
-
-
   const handleSubscriptionToggle = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       if (isSubscribed) {
         // If already subscribed, delete subscription
@@ -108,7 +115,7 @@ const ParkDetails = (props) => {
 
   return (
     <>
-    <AdminNavBar/>
+      <AdminNavBar />
       <main className="sm:mx-6 md:mx-8 lg:mx-16 xl:mx-24 md:max-w-7xl "></main>
       {/* Main Content */}
       <div className="flex">
@@ -165,7 +172,7 @@ const ParkDetails = (props) => {
                       : "hover:bg-gray-50"
                   }`}
                 >
-                 Mailing List
+                  Mailing List
                 </button>
               </li>
             </ul>
@@ -177,19 +184,66 @@ const ParkDetails = (props) => {
           {activeTab === "overview" && (
             <div>
               <h2 className="text-2xl font-medium mb-6">Overview</h2>
-              <p className="text-gray-800">Number of Feedback: {feedbacks?.length}</p>
-              <p className="text-gray-800">Number of Partnership Proposal: {proposals?.length}</p>
-              <p className="text-gray-800">Number of Subsricbers: {mailinglist?.length}</p>
-     
-             
+
+              <p className="text-lg mb-4">In 2025,</p>
+
+              <p className="text-lg mb-6">
+                There are currently {mailinglist?.length || 0} people in the
+                mailing list, {feedbacks?.length || 0} Feedbacks and{" "}
+                {proposals?.length || 0} Partnership Proposals.
+              </p>
+
+              {/* Pie Chart Section */}
+              <div className="bg-white p-4 rounded-lg shadow mb-6">
+                <div className="h-96">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={[
+                          {
+                            name: "Keep Me Updated",
+                            value: mailinglist?.length || 0,
+                            color: "#6abe52",
+                          },
+                          {
+                            name: "Feedback",
+                            value: feedbacks?.length || 0,
+                            color: "#8d5024",
+                          },
+                          {
+                            name: "Partnership Proposal",
+                            value: proposals?.length || 0,
+                            color: "#e99c30",
+                          },
+                        ]}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={true}
+                        outerRadius={120}
+                        dataKey="value"
+                        label={({ name, percent }) =>
+                          `${name}: ${(percent * 100).toFixed(0)}%`
+                        }
+                      >
+                        {[
+                          { name: "Keep Me Updated", color: "#6abe52" },
+                          { name: "Feedback", color: "#8d5024" },
+                          { name: "Partnership Proposal", color: "#e99c30" },
+                        ].map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip formatter={(value, name) => [value, name]} />
+                      <Legend verticalAlign="bottom" height={36} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
             </div>
           )}
-
           {activeTab === "feedback" && (
             <div>
-              <h2 className="text-2xl font-medium mb-6">
-                Feedback {" "}
-              </h2>
+              <h2 className="text-2xl font-medium mb-6">Feedback </h2>
               <p className="text-gray-800">{park?.description}</p>
               <img alt={park?.name} src={park?.plan} />
               <br />
@@ -199,19 +253,15 @@ const ParkDetails = (props) => {
           {activeTab === "partnership" && (
             <div>
               {" "}
-              <h2 className="text-2xl font-medium mb-6">
-                Development Status{" "}
-                </h2>
-              </div>
+              <h2 className="text-2xl font-medium mb-6">Development Status </h2>
+            </div>
           )}
           {activeTab === "mailinglist" && (
             <div>
               <h2 className="text-2xl font-medium mb-6">Mailing List</h2>
               <h2>Our Community Partnership Proposals</h2>
-            
             </div>
           )}
-         
         </main>
       </div>
     </>

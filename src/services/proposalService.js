@@ -49,6 +49,7 @@ const indexParkProposals = async (parkId) => {
     return res.json();
 } catch (error) {
     console.log(error);
+    return [];
 }
 };
 
@@ -84,6 +85,13 @@ const deleteProposal = async (parkId, proposalId) => {
 
 const updateProposal = async (parkId, proposalId, proposalFormData) => {
   try {
+    console.log("Updating proposal:", {
+      url: `${BASE_URL}/${parkId}/proposals/${proposalId}`,
+      method: 'PUT',
+      token: localStorage.getItem('token') ? 'Present' : 'Missing',
+      data: proposalFormData
+    });
+
     const res = await fetch(`${BASE_URL}/${parkId}/proposals/${proposalId}`, {
       method: 'PUT',
       headers: {
@@ -92,9 +100,17 @@ const updateProposal = async (parkId, proposalId, proposalFormData) => {
       },
       body: JSON.stringify(proposalFormData),
     });
+    
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error(`Server error (${res.status}):`, errorText);
+      throw new Error(`HTTP error! Status: ${res.status}, Response: ${errorText}`);
+    }
+    
     return res.json();
   } catch (error) {
-    console.log(error);
+    console.error("Error in updateProposal:", error);
+    throw error;
   }
 };
 
@@ -129,7 +145,7 @@ const deleteLike = async (parkId, proposalId) => {
   }
 };
 
-export default{
+export {
     indexAllProposals,
     indexParkProposals,
     createProposal,
