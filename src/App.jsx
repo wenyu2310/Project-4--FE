@@ -43,17 +43,7 @@ const App = () => {
 
   // console.log(user)
 
-  const handleAddPark = async (parkFormData) => {
-    const newPark = await parkService.create(parkFormData);
-    setIdeas([newPark, ...parks]);
-    const parksData = await parkService.index();
-    setIdeas(parksData);
-    navigate('/parks');
-  };
 
-  const newSearchData = (searchTerm) => {
-    setParkList(parkList.filter((park) => park.name === searchTerm));
-  };
   return (
     <>
  
