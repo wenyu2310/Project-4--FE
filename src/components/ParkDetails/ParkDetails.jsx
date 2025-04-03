@@ -6,8 +6,7 @@ import * as proposalService from "../../services/proposalService";
 import * as feedbackService from "../../services/feedbackService";
 import * as parkService from "../../services/parkService";
 import * as mailinglistService from "../../services/mailinglistService";
-import ProposalCard from "../ProposalCard/ProposalCard";
-import ProposalForm from "../ProposalForm/ProposalForm";
+import ProposalForm from "../ProposalForm/ProposalForm.jsx";
 import FeedbackForm from "../FeedbackForm/FeedbackForm";
 import Navbar from "../NavBar/NavBar";
 import ProposalCardNoBg from "../ProposalCard/ProposalCardNoBg.jsx";
@@ -23,6 +22,7 @@ const ParkDetails = (props) => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [activeTab, setActiveTab] = useState("overview");
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [subscriptionMessage, setSubscriptionMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -71,25 +71,41 @@ const ParkDetails = (props) => {
       feedbackFormData
     );
     setFeedbacks([newFeedback, ...feedbacks]);
+    alert(
+      "Feedback sent successfully. We will get back to you as soon as possible. Appreciate your understanding"
+    );
     // const feedbacksData = await feedbackService.indexParkFeedbacks();
     // setFeedbacks(feedbacksData);
   };
   const handleSubscriptionToggle = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setSubscriptionMessage(""); // Clear any existing message
 
     try {
       if (isSubscribed) {
         // If already subscribed, delete subscription
         await mailinglistService.deleteMailer(parkId);
         setIsSubscribed(false);
+        setSubscriptionMessage("You have been unsubscribed from updates");
       } else {
         // If not subscribed, create subscription
         await mailinglistService.createMailer(parkId);
         setIsSubscribed(true);
+        setSubscriptionMessage(
+          `You are now subscribed to updates for ${park?.name}`
+        );
       }
+
+      // Clear message after 5 seconds
+      setTimeout(() => {
+        setSubscriptionMessage("");
+      }, 5000);
     } catch (error) {
       console.error("Error toggling subscription:", error);
+      setSubscriptionMessage(
+        "Failed to update subscription. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -342,12 +358,13 @@ const ParkDetails = (props) => {
                     Subscribe to receive updates about {park?.name} directly to
                     your email.
                   </p>
+                  <p>{subscriptionMessage}</p>
+
                   <form onSubmit={handleSubscriptionToggle}>
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className={`font-bold py-2 px-6 rounded-full ${
-                        isLoading
+                      className={`font-bold py-2 px-6 rounded-full ${isLoading
                           ? "bg-gray-400 cursor-not-allowed"
                           : isSubscribed
                           ? "bg-red-600 hover:bg-red-700 text-white"
@@ -356,7 +373,7 @@ const ParkDetails = (props) => {
                     >
                       {isLoading
                         ? "Processing..."
-                        : isSubscribed
+                        :isSubscribed
                         ? "Unsubscribe"
                         : "Subscribe to Updates"}
                     </button>

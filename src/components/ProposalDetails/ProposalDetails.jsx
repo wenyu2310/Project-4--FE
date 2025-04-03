@@ -14,10 +14,8 @@ const ProposalDetails = (props) => {
 
     const handleDeleteProposal = async (parkId, proposalId) => {
         try {
-            // Assuming your import looks like: import proposalService from '../../services/proposalService';
             await proposalService.deleteProposal(parkId, proposalId);
             alert("Proposal deleted successfully")
-            // Add any success handling like UI updates or navigation
             console.log("Proposal deleted successfully");
             navigate(`/parks/${parkId}`);
         } catch (error) {
@@ -83,6 +81,15 @@ const ProposalDetails = (props) => {
                             </button>
                         </div>
             )}
+            <div className="flex mt-5 space-x-2">
+            <Link
+                                to={`/parks/${parkId}/`}
+                                className="bg-white hover:bg-gray-200 text-black font-bold mt-2 py-2 px-4 rounded-full"
+                            >
+                                 ← Back 
+                            </Link>
+                
+                        </div>
 
 
                  </main>

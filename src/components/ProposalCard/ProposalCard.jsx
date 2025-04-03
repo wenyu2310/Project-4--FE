@@ -22,8 +22,6 @@ const ProposalCard = (props) => {
             </a>
           </h3>
           
-         
-          
           
           <div className="text-sm text-green-800 mt-3">
             <p>Contributed by : {props.proposal.user.name}

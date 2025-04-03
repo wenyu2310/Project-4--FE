@@ -47,15 +47,25 @@ const ProposalForm = (props) => {
 
   return (
     <>
-<div
-      className={`bg-gray-50 rounded-lg  p-6 `} // Conditional padding
-    >
+
+      <div className="bg-white min-h-screen">
+        <NavBar/>
+        <main className="pt-15 p-4 max-w-6xl mx-auto">
+        <div className="relative z-10  px-4 text-center text-green-800 ">
+        <div className="py-2">
+          <h2 className="text-5xl font-semibold mb-6">
+          {proposalId ? "Edit Proposal" : "New Proposal"}
+          </h2>
+        </div>
+      </div>
+
+      <div className="py-1"></div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <div>
               <label
                 htmlFor="subject"
-                className="block text-lg font-medium text-gray-700"
+                className="block text-2xl font-medium mb-6 text-gray-700"
               >
                 Subject:
               </label>
@@ -72,7 +82,7 @@ const ProposalForm = (props) => {
             <br />
             <label
               htmlFor="text-input"
-              className="block text-lg font-medium text-gray-700"
+              className="block text-2xl font-medium mb-6 text-gray-700"
             >
               Proposal Details:
             </label>
@@ -95,7 +105,8 @@ const ProposalForm = (props) => {
             </button>
           </div>
         </form>
-        </div>
+      </main>
+      </div>
     </>
   );
 };

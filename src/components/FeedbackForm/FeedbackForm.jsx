@@ -44,7 +44,7 @@ const FeedbackForm = (props) => {
 
   return (
     <div
-      className={`bg-gray-50 rounded-lg  p-6 ${feedbackId ? 'pt-20' : ''}`} // Conditional padding
+      className={`bg-gray-50 rounded-lg  p-6 `} // Conditional padding
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

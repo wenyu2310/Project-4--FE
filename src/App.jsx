@@ -13,7 +13,7 @@ import ParkList from "./components/ParkList/ParkList.jsx";
 import ProposalList from "./components/ProposalList /ProposalList.jsx";
 import ParkDetails from "./components/ParkDetails/ParkDetails.jsx";
 import ProposalDetails from "./components/ProposalDetails/ProposalDetails.jsx";
-import ProposalForm from "./components/ProposalForm/ProposalForm.jsx";
+import ProposalFormBig from "./components/ProposalForm/ProposalFormBig.jsx";
 import AdminSignInForm from "./components/SignInForm/AdminSigninForm.jsx"
 import AdminSignUpForm from "./components/SignUpForm/AdminSignUpForm.jsx"
 import AdminLanding from "./components/Landing/AdminLanding.jsx";
@@ -74,7 +74,7 @@ const App = () => {
             <Route path="/proposals" element={<ProposalList proposals={proposals} />} />
             <Route path="/parks/:parkId" element={<ParkDetails/>}/>
             <Route path="/parks/:parkId/proposals/:proposalId" element={<ProposalDetails />} />
-            <Route path="/parks/:parkId/proposals/:proposalId/edit" element={<ProposalForm />} />
+            <Route path="/parks/:parkId/proposals/:proposalId/edit" element={<ProposalFormBig />} />
           
             <Route path="/admin/parks" element={<AdminParkList parks={parks} proposals={proposals} />} />
             <Route path="/admin/parks/:parkId" element={<AdminParkDetails/>} />
