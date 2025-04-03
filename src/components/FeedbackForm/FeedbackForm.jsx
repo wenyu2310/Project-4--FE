@@ -32,7 +32,7 @@ const FeedbackForm = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (parkId && feedbackId) {
-      parkService.updateFeedback(parkId, feedbackId, formData);
+      feedbackService.updateFeedback(parkId, feedbackId, formData);
       navigate(`/parks/${parkId}`);
     } else {
       console.log(formData)
