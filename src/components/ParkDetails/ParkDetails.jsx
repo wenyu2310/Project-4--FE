@@ -12,10 +12,12 @@ import FeedbackForm from "../FeedbackForm/FeedbackForm";
 import Navbar from "../NavBar/NavBar"
 import ProposalCardNoBg from "../ProposalCard/ProposalCardNoBg.jsx";
 
+
 // const googleApi = `${import.meta.env.GOOGLE_API}`;
 
 const ParkDetails = (props) => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const { parkId } = useParams();
   const [park, setPark] = useState(null);
   const [proposals, setProposals] = useState([]);
@@ -55,7 +57,8 @@ const ParkDetails = (props) => {
     console.log(proposalFormData);
     const newProposal = await proposalService.createProposal(
       parkId,
-      proposalFormData
+      proposalFormData,
+      navigate(`/parks/${parkId}`)
     );
     setProposals([newProposal, ...proposals]);
     const proposalsData = await proposalService.indexParkProposals();
@@ -66,7 +69,8 @@ const ParkDetails = (props) => {
     console.log(feedbackFormData);
     const newFeedback = await feedbackService.createFeedback(
       parkId,
-      feedbackFormData
+      feedbackFormData,
+
     );
     setFeedbacks([newFeedback, ...feedbacks]);
     // const feedbacksData = await feedbackService.indexParkFeedbacks();
@@ -121,235 +125,254 @@ const ParkDetails = (props) => {
   ];
 
   return (
-    <>
-    <Navbar/>
-    
-      <main className="sm:mx-6 md:mx-8 lg:mx-16 xl:mx-24 md:max-w-7xl "></main>
-      {/* Main Content */}
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-72px)]">
-          <div className="p-6 border-b border-white">
-            <h2 className="text-3xl font-black text-gray-700">{park?.name}</h2>
-          </div>
+    <div className="bg-white min-h-screen">
+      <Navbar />
+      
+      <div className="relative z-10 mx-auto px-4 text-center text-green-800">
+        <div className="py-8">
+          <h2 className="text-5xl font-semibold mt-8 mb-15">{park?.name}</h2>
+</div></div>
+      {/* Content Container with Margins */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Main Content */}
+        <div className="flex flex-col md:flex-row bg-white rounded-lg shadow overflow-hidden">
+          {/* Sidebar */}
+          <aside className="w-full md:w-64 bg-white border-r border-gray-100">
 
-          <nav className="">
-            <ul>
-              <li>
-                <button
-                  onClick={() => handleTabClick("overview")}
-                  className={`w-full text-left px-6 py-3 ${
-                    activeTab === "overview"
-                      ? "bg-gray-100 font-medium"
-                      : "hover:bg-gray-50"
-                  }`}
-                >
-                  Overview
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleTabClick("design")}
-                  className={`w-full text-left px-6 py-3 ${
-                    activeTab === "design"
-                      ? "bg-gray-100 font-medium"
-                      : "hover:bg-gray-50"
-                  }`}
-                >
-                  Design
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleTabClick("status")}
-                  className={`w-full text-left px-6 py-3 ${
-                    activeTab === "status"
-                      ? "bg-gray-100 font-medium"
-                      : "hover:bg-gray-50"
-                  }`}
-                >
-                  Development Status
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleTabClick("partnership")}
-                  className={`w-full text-left px-6 py-3 ${
-                    activeTab === "partnership"
-                      ? "bg-gray-100 font-medium"
-                      : "hover:bg-gray-50"
-                  }`}
-                >
-                  Partnership Hub 🤝
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleTabClick("keep-in-touch")}
-                  className={`w-full text-left px-6 py-3 ${
-                    activeTab === "feedback"
-                      ? "bg-gray-100 font-medium"
-                      : "hover:bg-gray-50"
-                  }`}
-                >
-                  Keep in Touch 🌱
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </aside>
 
-        {/* Main Content Area */}
-        <main className="flex-1 p-8">
-          {activeTab === "overview" && (
-            <div>
-              <h2 className="text-2xl font-medium mb-6">Overview</h2>
+            <nav className="sticky top-0">
+              <ul>
+                <li>
+                  <button
+                    onClick={() => handleTabClick("overview")}
+                    className={`w-full text-left px-6 py-3 ${
+                      activeTab === "overview"
+                        ? "bg-gray-100 font-medium"
+                        : "hover:bg-gray-50"
+                    }`}
+                  >
+                    Overview
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => handleTabClick("design")}
+                    className={`w-full text-left px-6 py-3 ${
+                      activeTab === "design"
+                        ? "bg-gray-100 font-medium"
+                        : "hover:bg-gray-50"
+                    }`}
+                  >
+                    Design
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => handleTabClick("status")}
+                    className={`w-full text-left px-6 py-3 ${
+                      activeTab === "status"
+                        ? "bg-gray-100 font-medium"
+                        : "hover:bg-gray-50"
+                    }`}
+                  >
+                    Development Status
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => handleTabClick("partnership")}
+                    className={`w-full text-left px-6 py-3 ${
+                      activeTab === "partnership"
+                        ? "bg-gray-100 font-medium"
+                        : "hover:bg-gray-50"
+                    }`}
+                  >
+                    Partnership Hub 🤝
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => handleTabClick("keep-in-touch")}
+                    className={`w-full text-left px-6 py-3 ${
+                      activeTab === "feedback"
+                        ? "bg-gray-100 font-medium"
+                        : "hover:bg-gray-50"
+                    }`}
+                  >
+                    Keep in Touch 🌱
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </aside>
 
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-gray-500 mb-1">Vision :</h3>
-                  <p className="text-gray-800">{park?.description}</p>
-                </div>
+          {/* Main Content Area */}
+          <main className="flex-1 p-6 md:p-8 overflow-auto">
+            {activeTab === "overview" && (
+              <div>
+                <h2 className="text-2xl font-medium mb-6">Overview</h2>
 
-                <div>
-                  <h3 className="text-gray-500 mb-1">Target Completion :</h3>
-                  <p className="text-gray-800">
-                    {park &&
-                      park.targetCompletion &&
-                      new Date(park.targetCompletion).toLocaleDateString()}
-                  </p>
-                </div>
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-gray-500 mb-1">Vision :</h3>
+                    <p className="text-gray-800">{park?.description}</p>
+                  </div>
 
-                <div>
-                  <h3 className="text-gray-500 mb-1">Location :</h3>
-                  {/* <div>
-                    <iframe
-                      width="450"
-                      height="250"
-                      frameborder="0"
-                      style="border:0"
-                      referrerpolicy="no-referrer-when-downgrade"
-                      src="https://www.google.com/maps/embed/v1/MAP_MODE?key=YOUR_API_KEY&PARAMETERS"
-                      allowfullscreen
-                    ></iframe>
-                  </div> */}
+                  <div>
+                    <h3 className="text-gray-500 mb-1">Target Completion :</h3>
+                    <p className="text-gray-800">
+                      {park &&
+                        park.targetCompletion &&
+                        new Date(park.targetCompletion).toLocaleDateString()}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-gray-500 mb-1">Location :</h3>
+                    {/* Google Maps would go here */}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {activeTab === "design" && (
-            <div>
-              <h2 className="text-2xl font-medium mb-6">
-                Concept Design of park{" "}
-              </h2>
-              <p className="text-gray-800">{park?.description}</p>
-              <img alt={park?.name} src={park?.plan} />
-              <br />
-              <img alt={park?.name} src={park?.perspective} />
-            </div>
-          )}
-          {activeTab === "status" && (
-            <div>
-              {" "}
-              <h2 className="text-2xl font-medium mb-6">
-                Development Status{" "}
-              </h2>{" "}
-              <div className="py-4">
-                <div className="flex items-center w-full mb-8">
-                  {steps.map((step, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col items-center flex-1"
-                    >
+            {activeTab === "design" && (
+              <div>
+                <h2 className="text-2xl font-medium mb-6">
+                  Concept Design of Park
+                </h2>
+                <p className="text-gray-800 mb-6">{park?.description}</p>
+                <div className="space-y-6">
+                  <img 
+                    alt={`${park?.name} plan`} 
+                    src={park?.plan} 
+                    className="w-full rounded-lg shadow-md"
+                  />
+                  <img 
+                    alt={`${park?.name} perspective`} 
+                    src={park?.perspective} 
+                    className="w-full rounded-lg shadow-md"
+                  />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "status" && (
+              <div>
+                <h2 className="text-2xl font-medium mb-6">
+                  Development Status
+                </h2>
+                <div className="py-4">
+                  <div className="flex items-center w-full mb-8">
+                    {steps.map((step, index) => (
                       <div
-                        className={`w-8 h-8 flex items-center justify-center rounded-full border-2 ${
-                          index <= park?.status
-                            ? "border-green-700 bg-green-700 text-white"
-                            : "border-gray-300 bg-white text-gray-500"
-                        }`}
+                        key={index}
+                        className="flex flex-col items-center flex-1"
                       >
-                        {index + 1}
-                      </div>
-
-                      <div className="text-center mt-2">
                         <div
-                          className={`text-sm font-medium ${
+                          className={`w-8 h-8 flex items-center justify-center rounded-full border-2 ${
                             index <= park?.status
-                              ? "text-green-700"
-                              : "text-gray-500"
+                              ? "border-green-700 bg-green-700 text-white"
+                              : "border-gray-300 bg-white text-gray-500"
                           }`}
                         >
-                          {step.title}
+                          {index + 1}
                         </div>
-                        <div className="text-xs text-gray-500">
-                          {step.description}
-                        </div>
-                      </div>
 
-                      {/* Connector line */}
-                      {index < steps.length - 1 && (
-                        <div
-                          className={`h-0.5 w-full mt-4 ${
-                            index < park?.status
-                              ? "bg-green-600"
-                              : "bg-gray-300"
-                          }`}
-                        ></div>
-                      )}
-                    </div>
-                  ))}
+                        <div className="text-center mt-2">
+                          <div
+                            className={`text-sm font-medium ${
+                              index <= park?.status
+                                ? "text-green-700"
+                                : "text-gray-500"
+                            }`}
+                          >
+                            {step.title}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {step.description}
+                          </div>
+                        </div>
+
+                        {/* Connector line */}
+                        {index < steps.length - 1 && (
+                          <div
+                            className={`h-0.5 w-full mt-4 ${
+                              index < park?.status
+                                ? "bg-green-600"
+                                : "bg-gray-300"
+                            }`}
+                          ></div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-          {activeTab === "partnership" && (
-            <div>
-              <h2 className="text-2xl font-medium mb-6">Partnership Hub</h2>
-              <h2>Our Community Partnership Proposals</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {proposals.map((proposal) => (
-                  <ProposalCardNoBg key={proposal.id} proposal={proposal} />
-                ))}
+            )}
+
+            {activeTab === "partnership" && (
+              <div>
+                <h2 className="text-2xl font-medium mb-5">Partnership Hub</h2>
+              
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                  {proposals && proposals.length > 0 ? (
+                    proposals.map((proposal) => (
+                      <ProposalCardNoBg key={proposal.id} proposal={proposal} parkId={parkId} />
+                    ))
+                  ) : (
+                    <p className="text-gray-600 col-span-full">No proposals  for {park?.name} yet. Be the first to propose a partnership!</p>
+                  )}
+                </div>
+                
+                <h3 className="text-xl font-medium mb-4 mt-8">Share a Partnership Proposal</h3>
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <ProposalForm handleAddProposal={handleAddProposal} />
+                </div>
               </div>
-              <br/>
-              <h2>Share a Partnership Proposal</h2>
-              <br/>
-              <ProposalForm handleAddProposal={handleAddProposal} />
-            </div>
-          )}
-          {activeTab === "keep-in-touch" && (
-            <div>
-              <h2 className="text-2xl font-medium mb-6">Mailing List</h2>
-              <br/>
-              <form onSubmit={handleSubscriptionToggle}>
-      <button
-        type="submit"
-        disabled={isLoading}
-        className={`font-bold py-2 px-4 rounded-full ${
-          isLoading 
-            ? "bg-gray-400 cursor-not-allowed" 
-            : isSubscribed
-              ? "bg-red-600 hover:bg-red-700 text-white"
-              : "bg-lime-600 hover:bg-lime-700 text-white"
-        }`}
-      >
-        {isLoading 
-          ? "Processing..." 
-          : isSubscribed 
-            ? "Unsubscribe" 
-            : "Subscribe"}
-      </button>
-    </form>
-            
-          <br/> <br/>
-              <h2 className="text-2xl font-medium mb-6"> Feedback</h2>
-              <FeedbackForm handleAddFeedback={handleAddFeedback} />
-            </div>
-          )}
-        </main>
+            )}
+
+            {activeTab === "keep-in-touch" && (
+              <div>
+                <h2 className="text-2xl font-medium mb-6">Stay Updated</h2>
+                
+                <div className="bg-gray-50 p-6 rounded-lg mb-8">
+                  <h3 className="text-lg font-medium mb-3">Mailing List</h3>
+                  <p className="mb-4 text-gray-600">
+                    Subscribe to receive updates about {park?.name} directly to your email.
+                  </p>
+                  <form onSubmit={handleSubscriptionToggle}>
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className={`font-bold py-2 px-6 rounded-full ${
+                        isLoading 
+                          ? "bg-gray-400 cursor-not-allowed" 
+                          : isSubscribed
+                            ? "bg-red-600 hover:bg-red-700 text-white"
+                            : "bg-lime-600 hover:bg-lime-700 text-white"
+                      }`}
+                    >
+                      {isLoading 
+                        ? "Processing..." 
+                        : isSubscribed 
+                          ? "Unsubscribe" 
+                          : "Subscribe to Updates"}
+                    </button>
+                  </form>
+                </div>
+              
+                <div className="mt-10">
+                  <h3 className="text-xl font-medium mb-4">Share Your Feedback</h3>
+                  <div className="bg-gray-50 p-6 rounded-lg">
+                    <FeedbackForm handleAddFeedback={handleAddFeedback} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </main>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 const ParkCard = (props) => {
   return (
     <div className="w-full h-full">
-      <div className="bg-white shadow rounded-lg overflow-hidden w-full h-full flex flex-col">
+      <div className="bg-white drop-shadow-lg rounded-lg overflow-hidden w-full h-full flex flex-col">
         {/* Card Image */}
         <div className="w-full h-48">
           <img

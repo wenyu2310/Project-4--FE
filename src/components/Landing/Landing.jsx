@@ -89,10 +89,6 @@ const Landing = () => {
           </Link>
       </section>
 
-      {/* Footer */}
-      <footer className="text-center py-4 bg-gray-100 text-sm">
-        © 2025 kee.word.inc ALL RIGHTS RESERVED.
-      </footer>
     </main>
   </>
     

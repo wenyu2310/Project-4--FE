@@ -12,6 +12,7 @@ import AdminDashboard from "./components/Dashboard/AdminDashBoard.jsx";
 import ParkList from "./components/ParkList/ParkList.jsx";
 import ProposalList from "./components/ProposalList /ProposalList.jsx";
 import ParkDetails from "./components/ParkDetails/ParkDetails.jsx";
+import ProposalDetails from "./components/ProposalDetails/ProposalDetails.jsx";
 import ProposalForm from "./components/ProposalForm/ProposalForm.jsx";
 import AdminSignInForm from "./components/SignInForm/AdminSigninForm.jsx"
 import AdminSignUpForm from "./components/SignUpForm/AdminSignUpForm.jsx"
@@ -19,6 +20,7 @@ import AdminLanding from "./components/Landing/AdminLanding.jsx";
 import AdminParkList from "./components/ParkList/AdminParkList.jsx"
 import AdminParkDetails from "./components/ParkDetails/AdminParkDetails.jsx"
 import "./App.css";
+
 
 const App = () => {
   const [parks, setParks] = useState([]);
@@ -71,7 +73,7 @@ const App = () => {
             <Route path="/parks" element={<ParkList parks={parks} proposals={proposals} />} />
             <Route path="/proposals" element={<ProposalList proposals={proposals} />} />
             <Route path="/parks/:parkId" element={<ParkDetails/>}/>
-            <Route path="/parks/:parkId/proposal/:proposalId/edit" element={<ProposalForm />} />
+            <Route path="/parks/:parkId/proposals/:proposalId" element={<ProposalDetails />} />
           
             <Route path="/admin/parks" element={<AdminParkList parks={parks} proposals={proposals} />} />
             <Route path="/admin/parks/:parkId" element={<AdminParkDetails/>} />
@@ -87,6 +89,10 @@ const App = () => {
         )}
        
       </Routes>
+            {/* Footer */}
+            <footer className="text-center py-4 bg-gray-100 text-sm">
+        © 2025 kee.word.inc 
+      </footer>
     </>
   );
 };

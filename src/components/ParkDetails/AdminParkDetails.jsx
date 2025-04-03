@@ -29,16 +29,16 @@ const ParkDetails = (props) => {
       setPark(parkData);
     };
 
-    const fetchParkProposals = async (parkId) => {
+    const fetchParkProposals = async () => {
       const proposalsData = await proposalService.indexParkProposals(parkId);
       setProposals(proposalsData);
     };
 
-    const fetchParkFeedback = async (parkId) => {
+    const fetchParkFeedback = async () => {
       const feedbackData = await feedbackService.indexParkFeedbacks(parkId);
       setFeedbacks(feedbackData)
     }
-    const fetchMailingList = async (parkId) => {
+    const fetchMailingList = async () => {
       const mailinglistData = await mailinglistService.indexParkmailinglist(parkId);
       setMailinglist(mailinglistData)
     }

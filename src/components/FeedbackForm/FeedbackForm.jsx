@@ -44,14 +44,14 @@ const FeedbackForm = (props) => {
 
   return (
     <div
-      className={`bg-white rounded-lg shadow-md p-6 ${feedbackId ? 'pt-20' : ''}`} // Conditional padding
+      className={`bg-gray-50 rounded-lg  p-6 ${feedbackId ? 'pt-20' : ''}`} // Conditional padding
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
         <div>
               <label
                 htmlFor="subject"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-lg font-medium text-gray-700"
               >
                 Subject:
               </label>
@@ -67,7 +67,7 @@ const FeedbackForm = (props) => {
               />
             </div>
             <br/>
-          <label htmlFor='text-input' className="block text-sm font-medium text-gray-700">Feedback:</label>
+          <label htmlFor='text-input' className="block text-lg font-medium text-gray-700">Feedback:</label>
           <textarea
             required
             name='text'
