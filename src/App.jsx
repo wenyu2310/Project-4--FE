@@ -8,7 +8,7 @@ import Landing from "./components/Landing/Landing.jsx";
 import SignInForm from "./components/SignInForm/SigninForm";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
-import AdminDashboard from "./components/Dashboard/AdminDashBoard.jsx";
+import AdminDashboard from "./components/Dashboard/AdminDashboard.jsx";
 import ParkList from "./components/ParkList/ParkList.jsx";
 import ProposalList from "./components/ProposalList /ProposalList.jsx";
 import ParkDetails from "./components/ParkDetails/ParkDetails.jsx";
