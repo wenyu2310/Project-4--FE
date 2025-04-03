@@ -5,7 +5,7 @@ import * as feedbackService from "../../services/feedbackService"
 
 const FeedbackForm = (props) => {
   const { feedbackId, parkId } = useParams(null);
-  const [formData, setFormData] = useState({
+  const [feedbackFormData, setFormData] = useState({
     subject:'',
     text: '',
   });
@@ -26,17 +26,17 @@ const FeedbackForm = (props) => {
   }, [parkId, feedbackId]);
 
   const handleChange = (evt) => {
-    setFormData({ ...formData, [evt.target.name]: evt.target.value });
+    setFormData({ ...feedbackFormData, [evt.target.name]: evt.target.value });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (parkId && feedbackId) {
-      feedbackService.updateFeedback(parkId, feedbackId, formData);
+      feedbackService.updateFeedback(parkId, feedbackId, feedbackFormData);
       navigate(`/parks/${parkId}`);
     } else {
-      console.log(formData)
-      props.handleAddFeedback(formData,{parkId});
+      console.log(feedbackFormData)
+      props.handleAddFeedback(feedbackFormData,{parkId});
       setFormData({    subject:'',
         text: '', });
     }
@@ -58,7 +58,7 @@ const FeedbackForm = (props) => {
               <input
                 type="text"
                 id="subject"
-                value={formData.subject}
+                value={feedbackFormData.subject}
                 name="subject"
                 onChange={handleChange}
                 required
@@ -72,7 +72,7 @@ const FeedbackForm = (props) => {
             required
             name='text'
             id='text-input'
-            value={formData.text}
+            value={feedbackFormData.text}
             onChange={handleChange}
             rows="8"
             className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
