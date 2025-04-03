@@ -6,6 +6,7 @@ import * as proposalService from "../../services/proposalService";
 import * as feedbackService from "../../services/feedbackService";
 import * as parkService from "../../services/parkService";
 import * as mailinglistService from "../../services/mailinglistService";
+import FeedbackTable from "../FeedbackTable/FeedbackTable.jsx";
 
 import AdminNavBar from "../NavBar/AdminNavBar.jsx";
 
@@ -91,27 +92,6 @@ const ParkDetails = (props) => {
       proposals.filter((proposal) => proposal.id !== deletedProposal.id)
     );
   };
-  const steps = [
-    { title: "Planning", description: "Estimated 1 year for completion" },
-    { title: "Concept Design", description: "Estimated 1 year for completion" },
-    {
-      title: "Environmental Impact Assessment",
-      description: "Estimated 1 year for completion",
-    },
-    {
-      title: "Authority Submission",
-      description: "Estimated 1 year for completion",
-    },
-    { title: "Construction", description: "Estimated 2 year for completion" },
-    {
-      title: "Open to Public",
-      description: `${
-        park &&
-        park.targetCompletion &&
-        new Date(park.targetCompletion).toLocaleDateString()
-      }`,
-    },
-  ];
 
   return (
     <>
@@ -173,6 +153,18 @@ const ParkDetails = (props) => {
                   }`}
                 >
                   Mailing List
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => handleTabClick("editpark")}
+                  className={`w-full text-left px-6 py-3 ${
+                    activeTab === "mailinglist"
+                      ? "bg-gray-100 font-medium"
+                      : "hover:bg-gray-50"
+                  }`}
+                >
+                  Edit Park Details
                 </button>
               </li>
             </ul>
@@ -244,19 +236,24 @@ const ParkDetails = (props) => {
           {activeTab === "feedback" && (
             <div>
               <h2 className="text-2xl font-medium mb-6">Feedback </h2>
-              <p className="text-gray-800">{park?.description}</p>
-              <img alt={park?.name} src={park?.plan} />
-              <br />
-              <img alt={park?.name} src={park?.perspective} />
+              <div>
+                <FeedbackTable feedbacks={feedbacks}/>
+              </div>
             </div>
           )}
           {activeTab === "partnership" && (
             <div>
-              {" "}
               <h2 className="text-2xl font-medium mb-6">Development Status </h2>
+              <div></div>
             </div>
           )}
           {activeTab === "mailinglist" && (
+            <div>
+              <h2 className="text-2xl font-medium mb-6">Mailing List</h2>
+              <h2>Our Community Partnership Proposals</h2>
+            </div>
+          )}
+          {activeTab === "editpark" && (
             <div>
               <h2 className="text-2xl font-medium mb-6">Mailing List</h2>
               <h2>Our Community Partnership Proposals</h2>

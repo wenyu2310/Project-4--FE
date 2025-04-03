@@ -16,12 +16,12 @@ const ProposalList = ({ proposals }) => {
       <Navbar />
 
       <div className="relative z-10 mx-auto px-4 text-center text-green-800">
-        <div className="py-8">
-          <h2 className="text-5xl font-semibold mt-8 mb-15">Partnership Hub</h2>
+        <div >
+          <h2 className="text-5xl font-semibold mt-15 mb-15">Partnership Hub</h2>
         </div>
       </div>
       {/* Content Container with Margins */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Content */}
         <div className="flex flex-col md:flex-row bg-white rounded-lg shadow overflow-hidden">
           {/* Sidebar */}
@@ -94,34 +94,6 @@ const ProposalList = ({ proposals }) => {
         </div>
       </div>
 
-      <main>
-        {/* Park Cards Section */}
-        <div className="relative z-10 mx-auto px-4 text-center text-emerald-800">
-          <div className="py-8">
-            <h2 className="text-5xl font-semibold mt-9 mb-6">
-              Partnership Hub
-            </h2>
-
-            <div className="mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 sm:max-w-2xl md:max-w-3xl lg:max-w-5xl">
-              {user &&
-                proposals
-                  .filter((proposal) => proposal.user.id === user.id)
-                  .map((proposal) => (
-                    <ProposalCard key={proposal.id} proposal={proposal} />
-                  ))}
-            </div>
-          </div>
-          <div className="py-8">
-            <h2 className="text-5xl font-bold mb-6">Community Contributions</h2>
-
-            <div className="mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 sm:max-w-2xl md:max-w-3xl lg:max-w-5xl">
-              {proposals.map((proposal) => (
-                <ProposalCard key={proposal.id} proposal={proposal} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </main>
     </>
   );
 };

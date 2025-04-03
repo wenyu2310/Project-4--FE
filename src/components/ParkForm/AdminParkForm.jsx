@@ -4,9 +4,9 @@ import * as parkService from "../../services/parkService";
 import * as proposalService from "../../services/proposalService";
 import NavBar from "../NavBar/NavBar";
 
-const ProposalForm = (props) => {
-  const { proposalId, parkId } = useParams(null);
-  const [proposalFormData, setFormData] = useState({
+const AdminParkForm = (props) => {
+  const {  parkId } = useParams(null);
+  const [parkFormData, setFormData] = useState({
     subject: "",
     text: "",
   });
@@ -14,33 +14,25 @@ const ProposalForm = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const fetchPark = async () => {
-    //   const parkData = await parkService.show(parkId);
-    //   setPark(parkData);
-    // };
-    const fetchProposal = async () => {
-      const proposalData = await proposalService.showProposal(
-        parkId,
-        proposalId
-      );
-      setFormData(proposalData);
+    const fetchPark = async () => {
+      const parkData = await parkService.show(parkId);
+      setPark(parkData);
     };
-
-    if (parkId && proposalId) fetchProposal();
-  }, [parkId, proposalId]);
+    if (parkId ) fetchPark();
+  }, [parkId]);
 
   const handleChange = (evt) => {
-    setFormData({ ...proposalFormData, [evt.target.name]: evt.target.value });
+    setFormData({ ...parkFormData, [evt.target.name]: evt.target.value });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (parkId && proposalId) {
-      proposalService.updateProposal(parkId, proposalId, proposalFormData);
-      navigate(`/parks/${parkId}/proposals/${proposalId}`);
+      parkService.updateProposal(parkId, parkFormData);
+      navigate(`/parks/${parkId}`);
     } else {
-      console.log(proposalFormData);
-      props.handleAddProposal(proposalFormData, { parkId });
+      console.log(parkFormData);
+      props.handleAddProposal(parkFormData, { parkId });
       setFormData({ subject: "", text: "" });
     }
   };
@@ -72,7 +64,7 @@ const ProposalForm = (props) => {
               <input
                 type="text"
                 id="subject"
-                value={proposalFormData.subject}
+                value={parkFormData.subject}
                 name="subject"
                 onChange={handleChange}
                 required
@@ -90,7 +82,7 @@ const ProposalForm = (props) => {
               required
               name="text"
               id="text-input"
-              value={proposalFormData.text}
+              value={parkFormData.text}
               onChange={handleChange}
               rows="12"
               className="mt-1 mb-8 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
@@ -111,4 +103,4 @@ const ProposalForm = (props) => {
   );
 };
 
-export default ProposalForm;
+export default AdminParkForm;

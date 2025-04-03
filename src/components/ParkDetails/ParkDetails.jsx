@@ -3,15 +3,14 @@ import { UserContext } from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
 import * as proposalService from "../../services/proposalService";
-import * as feedbackService from "../../services/feedbackService"
+import * as feedbackService from "../../services/feedbackService";
 import * as parkService from "../../services/parkService";
 import * as mailinglistService from "../../services/mailinglistService";
 import ProposalCard from "../ProposalCard/ProposalCard";
 import ProposalForm from "../ProposalForm/ProposalForm";
 import FeedbackForm from "../FeedbackForm/FeedbackForm";
-import Navbar from "../NavBar/NavBar"
+import Navbar from "../NavBar/NavBar";
 import ProposalCardNoBg from "../ProposalCard/ProposalCardNoBg.jsx";
-
 
 // const googleApi = `${import.meta.env.GOOGLE_API}`;
 
@@ -25,15 +24,14 @@ const ParkDetails = (props) => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  
 
   useEffect(() => {
     const fetchPark = async () => {
       try {
         const parkData = await parkService.show(parkId);
-        console.log(parkData.proposals)
+        console.log(parkData.proposals);
         setPark(parkData);
-        
+
         // If the park data includes proposals, set them directly
         if (parkData && parkData.proposals) {
           setProposals(parkData.proposals);
@@ -42,7 +40,7 @@ const ParkDetails = (props) => {
         console.error("Error fetching park data:", error);
       }
     };
-    
+
     if (user) {
       fetchPark();
     }
@@ -57,7 +55,7 @@ const ParkDetails = (props) => {
     console.log(proposalFormData);
     const newProposal = await proposalService.createProposal(
       parkId,
-      proposalFormData,
+      proposalFormData
       // navigate(`/parks/${parkId}`),
     );
     setProposals([newProposal, ...proposals]);
@@ -70,8 +68,7 @@ const ParkDetails = (props) => {
     console.log(feedbackFormData);
     const newFeedback = await feedbackService.createFeedback(
       parkId,
-      feedbackFormData,
-
+      feedbackFormData
     );
     setFeedbacks([newFeedback, ...feedbacks]);
     // const feedbacksData = await feedbackService.indexParkFeedbacks();
@@ -80,7 +77,7 @@ const ParkDetails = (props) => {
   const handleSubscriptionToggle = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       if (isSubscribed) {
         // If already subscribed, delete subscription
@@ -123,19 +120,18 @@ const ParkDetails = (props) => {
   return (
     <div className="bg-white min-h-screen">
       <Navbar />
-      
+
       <div className="relative z-10 mx-auto px-4 text-center text-green-800">
-        <div className="py-8">
-          <h2 className="text-5xl font-semibold mt-8 mb-15">{park?.name}</h2>
-</div></div>
+        <div>
+          <h2 className="text-5xl font-semibold mt-15 mb-15">{park?.name}</h2>
+        </div>
+      </div>
       {/* Content Container with Margins */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Content */}
         <div className="flex flex-col md:flex-row bg-white rounded-lg shadow overflow-hidden">
           {/* Sidebar */}
           <aside className="w-full md:w-64 bg-white border-r border-gray-100">
-
-
             <nav className="sticky top-0">
               <ul>
                 <li>
@@ -238,14 +234,14 @@ const ParkDetails = (props) => {
                 </h2>
                 <p className="text-gray-800 mb-6">{park?.description}</p>
                 <div className="space-y-6">
-                  <img 
-                    alt={`${park?.name} plan`} 
-                    src={park?.plan} 
+                  <img
+                    alt={`${park?.name} plan`}
+                    src={park?.plan}
                     className="w-full rounded-lg shadow-md"
                   />
-                  <img 
-                    alt={`${park?.name} perspective`} 
-                    src={park?.perspective} 
+                  <img
+                    alt={`${park?.name} perspective`}
+                    src={park?.perspective}
                     className="w-full rounded-lg shadow-md"
                   />
                 </div>
@@ -309,18 +305,27 @@ const ParkDetails = (props) => {
             {activeTab === "partnership" && (
               <div>
                 <h2 className="text-2xl font-medium mb-5">Partnership Hub</h2>
-              
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                   {proposals && proposals.length > 0 ? (
                     proposals.map((proposal) => (
-                      <ProposalCardNoBg key={proposal.id} proposal={proposal} parkId={parkId} />
+                      <ProposalCardNoBg
+                        key={proposal.id}
+                        proposal={proposal}
+                        parkId={parkId}
+                      />
                     ))
                   ) : (
-                    <p className="text-gray-600 col-span-full">No proposals  for {park?.name} yet. Be the first to propose a partnership!</p>
+                    <p className="text-gray-600 col-span-full">
+                      No proposals for {park?.name} yet. Be the first to propose
+                      a partnership!
+                    </p>
                   )}
                 </div>
-                
-                <h3 className="text-xl font-medium mb-4 mt-8">Share a Partnership Proposal</h3>
+
+                <h3 className="text-xl font-medium mb-4 mt-8">
+                  Share a Partnership Proposal
+                </h3>
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <ProposalForm handleAddProposal={handleAddProposal} />
                 </div>
@@ -330,35 +335,38 @@ const ParkDetails = (props) => {
             {activeTab === "keep-in-touch" && (
               <div>
                 <h2 className="text-2xl font-medium mb-6">Stay Updated</h2>
-                
+
                 <div className="bg-gray-50 p-6 rounded-lg mb-8">
                   <h3 className="text-lg font-medium mb-3">Mailing List</h3>
                   <p className="mb-4 text-gray-600">
-                    Subscribe to receive updates about {park?.name} directly to your email.
+                    Subscribe to receive updates about {park?.name} directly to
+                    your email.
                   </p>
                   <form onSubmit={handleSubscriptionToggle}>
                     <button
                       type="submit"
                       disabled={isLoading}
                       className={`font-bold py-2 px-6 rounded-full ${
-                        isLoading 
-                          ? "bg-gray-400 cursor-not-allowed" 
+                        isLoading
+                          ? "bg-gray-400 cursor-not-allowed"
                           : isSubscribed
-                            ? "bg-red-600 hover:bg-red-700 text-white"
-                            : "bg-lime-600 hover:bg-lime-700 text-white"
+                          ? "bg-red-600 hover:bg-red-700 text-white"
+                          : "bg-lime-600 hover:bg-lime-700 text-white"
                       }`}
                     >
-                      {isLoading 
-                        ? "Processing..." 
-                        : isSubscribed 
-                          ? "Unsubscribe" 
-                          : "Subscribe to Updates"}
+                      {isLoading
+                        ? "Processing..."
+                        : isSubscribed
+                        ? "Unsubscribe"
+                        : "Subscribe to Updates"}
                     </button>
                   </form>
                 </div>
-              
+
                 <div className="mt-10">
-                  <h3 className="text-xl font-medium mb-4">Share Your Feedback</h3>
+                  <h3 className="text-xl font-medium mb-4">
+                    Share Your Feedback
+                  </h3>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <FeedbackForm handleAddFeedback={handleAddFeedback} />
                   </div>
