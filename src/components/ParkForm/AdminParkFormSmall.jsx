@@ -62,7 +62,17 @@ const AdminParkFormSmall = (props) => {
     const parksData = await parkService.index();
     setParks(parksData);
   };
-
+    const handleDeletePark = async (parkId) => {
+        try {
+            await parkService.deletePark(parkId);
+            alert("Proposal deleted successfully")
+            console.log("Proposal deleted successfully");
+            navigate(`/admin/parks`);
+        } catch (error) {
+            console.error("Failed to delete proposal:", error);
+            // Handle the error appropriately (show user message, etc.)
+        }
+    };
   return (
     <>
 
@@ -214,7 +224,11 @@ const AdminParkFormSmall = (props) => {
             </button>
            
             <button
-                                onClick={() => handleDeletePark(parkId, proposalId)}
+                                type="button" // Add this to prevent form submission
+                                onClick={(e) => {
+                                  e.preventDefault(); // Prevent any form submission
+                                  handleDeletePark(parkId); 
+                                }}
                                 className="bg-gray-400 hover:bg-gray-700 text-white font-bold py-2 px-4 mb-8 rounded-full"
                             >
                                 DELETE PARK

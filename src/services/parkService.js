@@ -70,11 +70,26 @@ const update = async (parkId, parkFormData) => {
     throw error;
   }
 };
+const deletePark = async (parkId) => {
+  try {
+      const res = await fetch(`${BASE_URL}/${parkId}`, {
+          method: 'DELETE',
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+      });
+      return res.json();
+  } catch (error) {
+      console.error('Error deleting proposal', error);
+      throw error;
+  }
+};
 
 
 export {
     index,
     show,
     create,
-    update
+    update,
+    deletePark
 }
