@@ -24,11 +24,11 @@ const NavBar = () => {
         <>
         <nav className={`fixed top-0 left-0 w-full z-50 ${navbarHeight}`}>
             {user ? (
-                <div className="navbar bg-base-100 shadow-sm py-2 px-4 md:py-5 md:px-6">
+                <div className="navbar bg-base-100 shadow-sm py-2 px-4 md:py-4 md:px-6">
                     <div className="flex-1">
                         <Link to="/" className="flex items-center">
-                            <img src={Idea} alt="Idea Logo" className="h-8 mr-2 md:h-10" />
-                            <img src={parkitect} alt="Parkitect Logo" className="h-8 mr-2 md:h-10 hidden sm:block" />
+                            <img src={Idea} alt="Idea Logo" className="h-10 mr-3 md:h-10" />
+                            <img src={parkitect} alt="Parkitect Logo" className="h-10 mr-3 md:h-14 hidden sm:block" />
                         </Link>
                     </div>
 

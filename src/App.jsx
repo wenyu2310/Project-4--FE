@@ -49,7 +49,7 @@ const App = () => {
 
   return (
     <>
- 
+
 {/* <NavBar/> */}
       <Routes>
         <Route
