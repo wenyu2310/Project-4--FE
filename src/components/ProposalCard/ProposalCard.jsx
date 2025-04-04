@@ -25,7 +25,7 @@ const ProposalCard = (props) => {
           
           <div className="text-sm text-green-800 mt-3">
             <p>Contributed by : {props.proposal.user.name}
-              <p> for {props.proposal.park.name}</p></p>
+              <a> for {props.proposal.park.name}</a></p>
 
             <p className="text-sm text-gray-800 font-semibold mt-3">
              

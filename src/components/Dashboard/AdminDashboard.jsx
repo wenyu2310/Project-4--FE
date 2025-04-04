@@ -43,7 +43,7 @@ const AdminDashboard = ({ parks, proposals }) => {
               </Link>
             </div>
             <div className="text-center">
-              <Link to="/admin/proposals">
+              <Link to="/admin/parks/new">
                 <button className="py-2 px-4 w-full sm:w-auto lg:w-64 text-base sm:text-lg rounded-full text-gray-700 font-bold outline-2 outline-gray-700 hover:bg-gray-400">
                   Add a new Project
                 </button>
@@ -55,10 +55,7 @@ const AdminDashboard = ({ parks, proposals }) => {
       </section>
       
 
-      {/* Footer */}
-      <footer className="text-center py-4 bg-gray-100 text-sm">
-        © 2025 kee.word.inc ALL RIGHTS RESERVED.
-      </footer>
+
     </main>
 
     </>

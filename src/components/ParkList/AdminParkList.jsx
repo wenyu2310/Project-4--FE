@@ -16,9 +16,9 @@ const ParkList = ({ parks,proposals }) => {
 
 
         {/* Park Cards Section */}
-        <div className="relative z-10 mx-auto px-4 text-center text-emerald-800">
+        <div className="relative z-10 mx-auto px-4 text-center text-gray-800">
         <div className="py-8">
-          <h2 className="text-2xl font-bold mb-6">Projects Directory</h2>
+          <h2 className="text-5xl font-semibold mt-2 mb-10">Projects Directory</h2>
 
           {/* Display message if no parks or not logged in */}
           {(!user || parks.length === 0) && (

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import * as parkService from "../../services/parkService";
 import AdminNavBar from "../NavBar/AdminNavBar";
 
-const AdminParkForm = (props) => {
+const AdminParkFormSmall = (props) => {
   const {  parkId } = useParams(null);
   const [parks, setParks] = useState([]);
   const [parkFormData, setFormData] = useState({
@@ -32,13 +32,14 @@ const AdminParkForm = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (parkId && proposalId) {
+    if (parkId) {
       const submissionData = {
         ...parkFormData,
         targetCompletion: new Date(parkFormData.targetCompletion) // Ensure proper Date object for Prisma
       };
-      parkService.updateProposal(parkId,submissionData);
-      navigate(`/parks/${parkId}`);
+      parkService.update(parkId,submissionData);
+      alert("Park updated successfully");
+      navigate('/admin/parks');
     } else {
       console.log(parkFormData);
       const submissionData = {
@@ -53,11 +54,11 @@ const AdminParkForm = (props) => {
   const handleAddPark = async (submissionData) => {
     console.log(submissionData);
     const newPark = await parkService.create(
-      submissionData
-      // navigate(`/parks/${parkId}`),
+      submissionData,
+      navigate(`/parks/${parkId}`),
     );
     setParks([newPark, ...parks]);
-    alert("Proposal posted successfully");
+    alert("Park updated successfully");
     const parksData = await parkService.index();
     setParks(parksData);
   };
@@ -65,19 +66,11 @@ const AdminParkForm = (props) => {
   return (
     <>
 
-      <div className="bg-white min-h-screen">
         <AdminNavBar/>
-        <main className="pt-15 p-4 max-w-6xl mx-auto">
-        <div className="relative z-10  px-4 text-center text-green-800 ">
-        <div className="py-2">
-          <h2 className="text-5xl font-semibold mb-6">
-          {parkId ? "Edit Park" : "New Park"}
-          </h2>
-        </div>
-      </div>
+        <main className=" max-w-6xl mx-auto">
 
-      <div className="py-1"></div>
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <div ></div>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <div>
               <label
@@ -102,7 +95,7 @@ const AdminParkForm = (props) => {
               htmlFor="description"
               className="block text-2xl font-medium mb-6 text-gray-700"
             >
-              Description
+              Description:
             </label>
             <textarea
               required
@@ -119,7 +112,7 @@ const AdminParkForm = (props) => {
           <div>
               <label
                 htmlFor="targetCompletion"
-                className="block text-2xl font-medium mb-6 text-gray-700"
+                className="block text-sm font-medium text-gray-700"
               >
                 Target Completion:
               </label>
@@ -137,7 +130,7 @@ const AdminParkForm = (props) => {
             <div>
               <label
                 htmlFor="status"
-                className="block text-2xl font-medium mb-6 text-gray-700"
+                className="block text-sm font-medium text-gray-700"
               >
                 Status:
               </label>
@@ -157,7 +150,7 @@ const AdminParkForm = (props) => {
             <div>
               <label
                 htmlFor="plan"
-                className="block text-2xl font-medium mb-6 text-gray-700"
+                className="block text-sm font-medium text-gray-700"
               >
                 Plan:
               </label>
@@ -176,7 +169,7 @@ const AdminParkForm = (props) => {
             <div>
               <label
                 htmlFor="perspective"
-                className="block text-2xl font-medium mb-6 text-gray-700"
+                className="block text-sm font-medium text-gray-700"
               >
                 Perspective:
               </label>
@@ -196,7 +189,7 @@ const AdminParkForm = (props) => {
             <div>
               <label
                 htmlFor="stage"
-                className="block text-2xl font-medium mb-6 text-gray-700"
+                className="block text-sm font-medium text-gray-700"
               >
                 Stage:
               </label>
@@ -217,14 +210,14 @@ const AdminParkForm = (props) => {
               type="submit"
               className="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-4 mb-8 rounded-full"
             >
-              ADD PARK
+              UPDATE PARK
             </button>
           </div>
         </form>
       </main>
-      </div>
+
     </>
   );
 };
 
-export default AdminParkForm;
+export default AdminParkFormSmall;

@@ -19,6 +19,7 @@ import AdminSignUpForm from "./components/SignUpForm/AdminSignUpForm.jsx"
 import AdminLanding from "./components/Landing/AdminLanding.jsx";
 import AdminParkList from "./components/ParkList/AdminParkList.jsx"
 import AdminParkDetails from "./components/ParkDetails/AdminParkDetails.jsx"
+import AdminParkForm from "./components/ParkForm/AdminParkForm.jsx";
 import "./App.css";
 
 
@@ -66,8 +67,10 @@ const App = () => {
             <Route path="/parks/:parkId/proposals/:proposalId" element={<ProposalDetails />} />
             <Route path="/parks/:parkId/proposals/:proposalId/edit" element={<ProposalFormBig />} />
           
+            <Route path="/admin/new" element={<AdminSignUpForm />} />
             <Route path="/admin/parks" element={<AdminParkList parks={parks} proposals={proposals} />} />
             <Route path="/admin/parks/:parkId" element={<AdminParkDetails/>} />
+            <Route path="/admin/parks/new" element={<AdminParkForm/>} />
 
           </>
         ) : (

@@ -6,6 +6,7 @@ import * as proposalService from "../../services/proposalService";
 import * as feedbackService from "../../services/feedbackService";
 import * as parkService from "../../services/parkService";
 import * as mailinglistService from "../../services/mailinglistService";
+import AdminParkFormSmall from "../../components/ParkForm/AdminParkFormSmall.jsx";
 import FeedbackTable from "../FeedbackTable/FeedbackTable.jsx";
 
 import AdminNavBar from "../NavBar/AdminNavBar.jsx";
@@ -164,7 +165,7 @@ const ParkDetails = (props) => {
                       : "hover:bg-gray-50"
                   }`}
                 >
-                  Edit Park Details
+                  Update Park Details
                 </button>
               </li>
             </ul>
@@ -255,8 +256,8 @@ const ParkDetails = (props) => {
           )}
           {activeTab === "editpark" && (
             <div>
-              <h2 className="text-2xl font-medium mb-6">Mailing List</h2>
-              <h2>Our Community Partnership Proposals</h2>
+              <h2 className="text-2xl font-medium ">Update Park Details</h2>
+              <AdminParkFormSmall/>
             </div>
           )}
         </main>
