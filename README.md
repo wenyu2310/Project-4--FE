@@ -55,7 +55,7 @@ SNVY66SINOB
 ## MVP- Minimum Viable Product
 1. At least 3 data entities components
 2. The back-end application is built with Express and Node.
-3. MongoDB is used as the database management system.
+3. Primsa, Postgres and Supabase is used as the database management system.
 4. The back-end and front-end applications implement JWT token-based authentication to sign up, sign in, and sign out users.
 5. Authorization is implemented across the front-end and back-end. Guest users (those not signed in) should not be able to create, update, or delete data in the application or access functionality allowing those actions.
 6. The project has at least two data entities in addition to the User model. At least one entity must have a relationship with the User model.
@@ -63,15 +63,12 @@ SNVY66SINOB
 8. The front-end application does not hold any secret keys. Public APIs that require secret keys must be accessed from the back-end application.
 
 ## Planned future enhancements
-- Ideas - Post documents / images
-- Anaylsis of number of Ideas over time
+- Feedback with AI call for automated customised replies
+- Anaylsis of number of feedback and parntership proposals over time
 
 ## Reflections
-- Strengths: Mastered Express CRUD operations and developed effective full-stack teamwork.
+- Strengths: Learned to use Relational Databases 
 - Weaknesses: Unclear initial data models and underestimated task complexity.
 
-## additional reflections 
-- familiarize with CRUD concepts and basic REACT components for backend + frontend deployment
-- communication and coordination played a big role, especially with time constraint and technical complexity 
 
 
