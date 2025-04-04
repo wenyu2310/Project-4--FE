@@ -6,7 +6,7 @@ import ProposalCard from "../ProposalCard/ProposalCard.jsx"
 import AdminNavBar from "../NavBar/AdminNavBar.jsx";
 
 
-const ParkList = ({ parks,proposals }) => {
+const AdminParkList = ({ parks,proposals }) => {
   const { user } = useContext(UserContext);
 
   return (
@@ -63,4 +63,4 @@ const ParkList = ({ parks,proposals }) => {
     </>
   );
 };
-export default ParkList;
+export default AdminParkList;

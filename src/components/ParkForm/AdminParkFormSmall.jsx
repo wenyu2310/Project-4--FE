@@ -208,10 +208,17 @@ const AdminParkFormSmall = (props) => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-4 mb-8 rounded-full"
+              className="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 px-4 mb-8 mr-3 rounded-full"
             >
               UPDATE PARK
             </button>
+           
+            <button
+                                onClick={() => handleDeletePark(parkId, proposalId)}
+                                className="bg-gray-400 hover:bg-gray-700 text-white font-bold py-2 px-4 mb-8 rounded-full"
+                            >
+                                DELETE PARK
+                            </button>
           </div>
         </form>
       </main>

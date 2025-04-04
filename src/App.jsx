@@ -18,7 +18,9 @@ import AdminSignInForm from "./components/SignInForm/AdminSigninForm.jsx"
 import AdminSignUpForm from "./components/SignUpForm/AdminSignUpForm.jsx"
 import AdminLanding from "./components/Landing/AdminLanding.jsx";
 import AdminParkList from "./components/ParkList/AdminParkList.jsx"
+import AdminProposalList from "./components/ProposalList /AdminProposalList.jsx";
 import AdminParkDetails from "./components/ParkDetails/AdminParkDetails.jsx"
+import AdminProposalDetails from "./components/ProposalDetails/AdminProposalDetails.jsx";
 import AdminParkForm from "./components/ParkForm/AdminParkForm.jsx";
 import "./App.css";
 
@@ -69,6 +71,8 @@ const App = () => {
           
             <Route path="/admin/new" element={<AdminSignUpForm />} />
             <Route path="/admin/parks" element={<AdminParkList parks={parks} proposals={proposals} />} />
+            <Route path="/admin/proposals" element={<AdminProposalList parks={parks} proposals={proposals} />} />
+            <Route path="/admin/proposals/:proposalId" element={<AdminProposalDetails />} />
             <Route path="/admin/parks/:parkId" element={<AdminParkDetails/>} />
             <Route path="/admin/parks/new" element={<AdminParkForm/>} />
 

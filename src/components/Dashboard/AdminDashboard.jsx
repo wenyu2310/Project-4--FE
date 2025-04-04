@@ -25,7 +25,7 @@ const AdminDashboard = ({ parks, proposals }) => {
         {/* Content with full opacity */}
         <div className="relative z-10 mx-auto px-4 text-center">
           <h2 className="text-7xl sm:text-5xl font-semibold mb-4 sm:mb-6">
-            Admin {user.email} !
+            Admin {user.name} 
           </h2>
           <div className="text-center mb-8 max-w-3xl mx-auto">
             <p className="text-lg sm:text-xl">

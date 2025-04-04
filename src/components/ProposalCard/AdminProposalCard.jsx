@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-const ProposalCard = (props) => {
+const AdminProposalCard = (props) => {
   const { parkId } = useParams();
   
   return (
@@ -15,7 +15,7 @@ const ProposalCard = (props) => {
         <div className="p-4 flex-grow relative z-10">
           <h3 className="text-lg font-bold text-gray-700 mb-2">
             <a 
-              href={`/parks/${props.parkId}/proposals/${props.proposal.id}`}
+              href={`/admin/proposals/${props.proposal.id}`}
               className="hover:text-green-800"
             >
               {props.proposal.subject}
@@ -34,4 +34,4 @@ const ProposalCard = (props) => {
   );
 };
 
-export default ProposalCard;
+export default AdminProposalCard;

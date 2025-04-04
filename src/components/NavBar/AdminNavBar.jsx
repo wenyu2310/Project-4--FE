@@ -68,18 +68,15 @@ const AdminNavBar = () => {
                 <Link to="/admin/parks" className="btn btn-ghost">
                   All Projects
                 </Link>
-                {/* <Link to="/admin/proposals" className="btn btn-ghost">
-                  All Feedback
-                </Link>
                 <Link to="/admin/proposals" className="btn btn-ghost">
                   All Partnership Proposals
-                </Link> */}
+                </Link>
               </div>
             </div>
 
             <div className="hidden md:flex md:flex-1 md:justify-end md:items-center md:space-x-4">
               <img src={User} alt="icon" className="h-6 md:h-8" />
-              <span className="font-bold md:text-base">Admin {user.name}</span>
+              <span className="font-bold md:text-base"> {user.name}</span>
               <Link
                 to="/"
                 onClick={handleSignOut}
@@ -100,22 +97,22 @@ const AdminNavBar = () => {
                   Home
                 </Link>
                 <Link
-                  to="/ideas"
+                  to="/admin/parks"
                   className="btn btn-ghost w-full justify-start"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  All Ideas
+                  All Projects
                 </Link>
                 <Link
-                  to="/yourideas"
+                  to="/admin/prposals"
                   className="btn btn-ghost w-full justify-start"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Your Ideas
+                  All Parks
                 </Link>
                 <div className="flex items-center space-x-2 pt-2 border-t">
                   <img src={User} alt="icon" className="h-6" />
-                  <span className="font-bold text-sm">{user.name}</span>
+                  <span className="font-bold text-sm">Admin {user.name}</span>
                 </div>
                 <Link
                   to="/"
