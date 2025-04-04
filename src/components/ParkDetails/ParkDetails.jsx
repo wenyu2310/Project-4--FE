@@ -23,7 +23,7 @@ const ParkDetails = (props) => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [subscriptionMessage, setSubscriptionMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchPark = async () => {
@@ -79,7 +79,6 @@ const ParkDetails = (props) => {
   };
   const handleSubscriptionToggle = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setSubscriptionMessage(""); // Clear any existing message
 
     try {
@@ -106,9 +105,7 @@ const ParkDetails = (props) => {
       setSubscriptionMessage(
         "Failed to update subscription. Please try again."
       );
-    } finally {
-      setIsLoading(false);
-    }
+    } 
   };
 
   const steps = [
@@ -236,7 +233,7 @@ const ParkDetails = (props) => {
                   </div>
 
                   <div>
-                    <h3 className="text-gray-500 mb-1">Location :</h3>
+                    {/* <h3 className="text-gray-500 mb-1">Location :</h3> */}
                     {/* Google Maps would go here */}
                   </div>
                 </div>
@@ -363,17 +360,14 @@ const ParkDetails = (props) => {
                   <form onSubmit={handleSubscriptionToggle}>
                     <button
                       type="submit"
-                      disabled={isLoading}
-                      className={`font-bold py-2 px-6 rounded-full ${isLoading
-                          ? "bg-gray-400 cursor-not-allowed"
-                          : isSubscribed
+
+                      className={`font-bold py-2 px-6 rounded-full  ${isSubscribed
                           ? "bg-red-600 hover:bg-red-700 text-white"
                           : "bg-lime-600 hover:bg-lime-700 text-white"
                       }`}
                     >
-                      {isLoading
-                        ? "Processing..."
-                        :isSubscribed
+                      
+                        {isSubscribed
                         ? "Unsubscribe"
                         : "Subscribe to Updates"}
                     </button>
