@@ -13,16 +13,19 @@ const FeedbackForm = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPark = async () => {
-      const parkData = await parkService.show(parkId);
-      setPark(parkData);
-    };
-    // const fetchProposal = async () => {
-    //   const proposalData = await proposalService.showProposals(feedbackId);
+    // const fetchPark = async () => {
+    //   const parkData = await parkService.show(parkId);
     //   setPark(parkData);
     // };
+    const fetchfeedback = async () => {
+      const feedbackData = await feedbackService.showFeedback(
+        parkId,
+        feedbackId
+      );
+      setFormData(feedbackData);
+    };
 
-    if (parkId && feedbackId) fetchPark();
+    if (parkId && feedbackId) fetchfeedback();
   }, [parkId, feedbackId]);
 
   const handleChange = (evt) => {
@@ -36,7 +39,7 @@ const FeedbackForm = (props) => {
       navigate(`/parks/${parkId}`);
     } else {
       console.log(feedbackFormData)
-      props.handleAddFeedback(feedbackFormData,{parkId});
+      props.handleAddFeedback(feedbackFormData,parkId);
       setFormData({    subject:'',
         text: '', });
     }
