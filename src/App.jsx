@@ -51,42 +51,47 @@ const App = () => {
     <>
 
 {/* <NavBar/> */}
-      <Routes>
-        <Route
-          path="/"
-          element={user ? <Dashboard parks={parks} proposals={proposals} /> : <Landing />}
-        />
-        <Route
-          path="/admin"
-          element={user?.isAdmin ? <AdminDashboard parks={parks} proposals={proposals} /> : <AdminLanding />}
-        />
-        {user ? (
-          <>
-            {/* protected routes */}
-            <Route path="/parks" element={<ParkList parks={parks} proposals={proposals} />} />
-            <Route path="/proposals" element={<ProposalList proposals={proposals} />} />
-            <Route path="/parks/:parkId" element={<ParkDetails/>}/>
-            <Route path="/parks/:parkId/proposals/:proposalId" element={<ProposalDetails />} />
-            <Route path="/parks/:parkId/proposals/:proposalId/edit" element={<ProposalFormBig />} />
-          
-            <Route path="/admin/new" element={<AdminSignUpForm />} />
-            <Route path="/admin/parks" element={<AdminParkList parks={parks} proposals={proposals} />} />
-            <Route path="/admin/proposals" element={<AdminProposalList parks={parks} proposals={proposals} />} />
-            <Route path="/admin/proposals/:proposalId" element={<AdminProposalDetails />} />
-            <Route path="/admin/parks/:parkId" element={<AdminParkDetails/>} />
-            <Route path="/admin/parks/new" element={<AdminParkForm/>} />
-
-          </>
-        ) : (
-          <>
-            <Route path="/sign-in" element={<SignInForm />} />
-            <Route path="/sign-up" element={<SignUpForm />} />
-            <Route path="/admin/sign-in" element={<AdminSignInForm />} />
-            <Route path="/admin/sign-up" element={<AdminSignUpForm />} />
-          </>
-        )}
-       
-      </Routes>
+<Routes>
+  <Route
+    path="/"
+    element={user ? <Dashboard parks={parks} proposals={proposals} /> : <Landing />}
+  />
+  <Route
+    path="/admin"
+    element={user?.isAdmin ? <AdminDashboard parks={parks} proposals={proposals} /> : <AdminLanding />}
+  />
+  
+  {user ? (
+    <>
+      {/* protected user routes */}
+      <Route path="/parks" element={<ParkList parks={parks} proposals={proposals} />} />
+      <Route path="/proposals" element={<ProposalList proposals={proposals} />} />
+      <Route path="/parks/:parkId" element={<ParkDetails/>}/>
+      <Route path="/parks/:parkId/proposals/:proposalId" element={<ProposalDetails />} />
+      <Route path="/parks/:parkId/proposals/:proposalId/edit" element={<ProposalFormBig />} />
+      
+      {/* protected admin routes */}
+      {user.isadmin && (
+        <>
+          <Route path="/admin/new" element={<AdminSignUpForm />} />
+          <Route path="/admin/parks" element={<AdminParkList parks={parks} proposals={proposals} />} />
+          <Route path="/admin/proposals" element={<AdminProposalList parks={parks} proposals={proposals} />} />
+          <Route path="/admin/proposals/:proposalId" element={<AdminProposalDetails />} />
+          <Route path="/admin/parks/:parkId" element={<AdminParkDetails/>} />
+          <Route path="/admin/parks/new" element={<AdminParkForm/>} />
+        </>
+      )}
+    </>
+  ) : (
+    <>
+      {/* authentication routes */}
+      <Route path="/sign-in" element={<SignInForm />} />
+      <Route path="/sign-up" element={<SignUpForm />} />
+      <Route path="/admin/sign-in" element={<AdminSignInForm />} />
+      <Route path="/admin/sign-up" element={<AdminSignUpForm />} />
+    </>
+  )}
+</Routes>
             {/* Footer */}
             <footer className="text-center py-4 bg-gray-100 text-sm">
         © 2025 kee.word.inc 
