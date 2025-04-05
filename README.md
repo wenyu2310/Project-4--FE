@@ -65,6 +65,8 @@ SNVY66SINOB
 ## Planned future enhancements
 - Feedback with AI call for automated customised replies
 - Anaylsis of number of feedback and parntership proposals over time
+- Google Map location of park
+- 
 
 ## Reflections
 - Strengths: Learned to use Relational Databases 
