@@ -13,7 +13,7 @@ const AdminDashboard = ({ parks, proposals }) => {
   return (
     <>
     <AdminNavBar/>
-    <main class= "text-grey-800">
+    <main className= "text-grey-800">
       {/* About Platform Section */}
       <section className="relative py-12 sm:py-16 lg:py-24">
         {/* Background image with 50% opacity - minimum 600px height on large screens */}

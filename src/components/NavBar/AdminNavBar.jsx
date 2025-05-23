@@ -100,7 +100,7 @@ const AdminNavBar = () => {
                   All Projects
                 </Link>
                 <Link
-                  to="/admin/prposals"
+                  to="/admin/proposals"
                   className="btn btn-ghost w-full justify-start"
                   onClick={() => setIsMenuOpen(false)}
                 >

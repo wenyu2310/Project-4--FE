@@ -71,7 +71,7 @@ const App = () => {
       <Route path="/parks/:parkId/proposals/:proposalId/edit" element={<ProposalFormBig />} />
       
       {/* protected admin routes */}
-      {user.isadmin && (
+      {user.isAdmin && (
         <>
           <Route path="/admin/new" element={<AdminSignUpForm />} />
           <Route path="/admin/parks" element={<AdminParkList parks={parks} proposals={proposals} />} />
